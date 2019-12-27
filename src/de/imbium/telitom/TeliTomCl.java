@@ -1,15 +1,22 @@
 package de.imbium.telitom;
 
-public class TeliTomCl {
+import javax.swing.JFrame;
+
+public class TeliTomCl extends JFrame {
 	
+	public final String strTitle = "TeliTom Client v0.1";
+ 	
 	public TeliTomCl() {
-		System.out.println("Hello");
+		System.out.println(strTitle);
+		
+		setTitle(strTitle);
+		setSize(600,600);
+		setVisible(true);
 	}
 	
 	
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) {		
 		TeliTomCl tx = new TeliTomCl();
 		
 	}
