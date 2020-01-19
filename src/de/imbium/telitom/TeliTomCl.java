@@ -15,6 +15,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class TeliTomCl extends JFrame {
+	
+	public final static int STARTED = 0;
+	public final static int CONNECTED = 1;
+	
 
 	final static String strTitle = "TeliTom Client v0.1";
 	final static boolean shouldFill = true;
