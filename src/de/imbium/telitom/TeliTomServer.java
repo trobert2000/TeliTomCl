@@ -6,7 +6,9 @@ import java.util.*;
 
 public class TeliTomServer extends Thread {
 	
-	final int PORT = 7001;	
+	final int PORT = 7001;
+	
+	private boolean runFlag = true;
 	
 	private ArrayList<String> UserList = new ArrayList<String>(); 
 	
@@ -29,7 +31,7 @@ public class TeliTomServer extends Thread {
 			PrintWriter out = new PrintWriter(new OutputStreamWriter(x2.getOutputStream()),true);
 			
 			int cnt = 0;
-			while((line = in.readLine()) != null && cnt < 30) {
+			while(runFlag && (line = in.readLine()) != null && cnt < 30) {
 				
 				System.out.println("se recv "+line);
 				
@@ -37,7 +39,7 @@ public class TeliTomServer extends Thread {
 				
 				sendStr = "NOT ENTERED SWITCH ON SERVER";
 				String str1 = st.nextToken();
-				System.out.println("serv str1 " + str1);
+				System.out.println("server received " + str1);
 				
 				switch(str1) {
 				
@@ -52,21 +54,24 @@ public class TeliTomServer extends Thread {
 				case "OK":
 					sleep(500);
 					break;
-				
-				
 				case "HALLO":
 					sendStr = "GOODDAY";
-					break;				
-				}
-								
+					break;	
+					
+				case "CONNECT":
+					startMirrorServer();
+					break;
+					
+				case "ENDE":	
+				default:
+					runFlag = false;					
+					break;
+				}								
 				
 				out.println(sendStr);
 				sleep(100);	
 				cnt++;
 			}
-						
-				
-				
 			
 			in.close();
 			out.close();
@@ -82,6 +87,14 @@ public class TeliTomServer extends Thread {
 		}
 	}
 	
+	private void startMirrorServer() {
+		
+		TeliTomDataMirrorServer ms = new TeliTomDataMirrorServer(9901);
+		ms.start();
+		
+		
+	}
+
 	private String getUserListAsString() {
 		System.out.println("size user list server: "+ UserList.size());
 		String retVal = "USERLIST:";

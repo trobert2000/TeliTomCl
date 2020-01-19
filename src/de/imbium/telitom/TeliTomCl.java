@@ -43,6 +43,9 @@ public class TeliTomCl extends JFrame {
 		String portstr = tf2.getText();
 		String name = tf1.getText();		
 		
+		TeliTomServer x = new TeliTomServer();
+		x.start();
+		
 		// tries to connect to the Server and do the ping pong
 		TeliTomClient tcl = new TeliTomClient(name,ip_addr,portstr);
 		tcl.start();

@@ -28,6 +28,9 @@ public class TeliTomClient extends Thread{
 		String line = "";
 		String sendStr = "";
 		try {
+			// wait until server started
+			sleep(500);
+			
 			Socket s = new Socket("127.0.0.1",7001);
 			
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -54,6 +57,7 @@ public class TeliTomClient extends Thread{
 					pushUserList(st.nextToken());
 					sendStr = "OK";
 					break;
+				
 					
 				}
 				
